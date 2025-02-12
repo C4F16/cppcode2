@@ -1,1 +1,417 @@
+Q41
+#include <iostream>
+using namespace std;
+void FillArray(int Array[100], int& length)
+{
+	length = 6;
+	Array[0] = 10;
+	Array[1] = 20;
+	Array[2] = 30;
+	Array[3] = 30;
+	Array[4] = 20;
+	Array[5] = 10;
 
+}
+void PrintArray(int Array[100], int length)
+{
+	for (int i = 0; i < length; i++)
+		cout << Array[i] << " ";
+	cout << endl;
+}
+
+bool isPalindorArray(int Array[100], int length) {
+	for (int i = 0; i < length; i++)
+	{
+		if (Array[i] != Array[length - i - 1])
+		{
+
+			return false;
+	}
+
+	}
+	return true;
+}
+
+ 
+int main() {
+	srand((unsigned)time(NULL));
+
+	int Array[100], length = 0;
+
+	FillArray(Array, length);
+
+	cout << "Array elements:";
+	PrintArray(Array, length);
+	if (isPalindorArray(Array, length))
+		cout << "Yes ,  Palindor Array "<<endl;
+	else
+	{
+		cout << "No , Not Palindor Array "<<endl;
+
+	}
+	return 0;
+}
+----------------------------------------------------
+Q42
+#include <iostream>
+using namespace std;
+int RandomNumber(int From, int To)
+{
+	int randNum = rand() % (To - From + 1) + From;
+	return randNum;
+}
+void FillArrayWithRandomNumbers(int Array[100], int& length)
+{
+	cout << "Enter number of elements:" << endl;
+	cin >> length;
+	for (int i = 0; i < length; i++)
+		Array[i] = RandomNumber(1, 100);
+}
+void PrintArray(int Array[100], int length)
+{
+	for (int i = 0; i < length; i++)
+		cout << Array[i] << " ";
+	cout << endl;
+}
+
+int Oddcount(int Array[100], int length) {
+	int count = 0;
+	for (int i = 0; i < length; i++)
+	{
+		if (Array[i] % 2 != 0) 
+		{
+			count++;
+
+		}
+
+	}
+	return count;
+
+}
+
+ 
+int main() {
+	srand((unsigned)time(NULL));
+
+	int Array[100], length = 0;
+
+	FillArrayWithRandomNumbers(Array, length);
+
+	cout << "Array elements:";
+	PrintArray(Array , length);
+	
+	cout << "Odd Numbers = ";
+	cout<<Oddcount(Array, length)<<endl;
+
+	return 0;
+}
+--------------------------------------------------------------
+Q43
+#include <iostream>
+using namespace std;
+int RandomNumber(int From, int To)
+{
+	int randNum = rand() % (To - From + 1) + From;
+	return randNum;
+}
+void FillArrayWithRandomNumbers(int Array[100], int& length)
+{
+	cout << "Enter number of elements:" << endl;
+	cin >> length;
+	for (int i = 0; i < length; i++)
+		Array[i] = RandomNumber(1, 100);
+}
+void PrintArray(int Array[100], int length)
+{
+	for (int i = 0; i < length; i++)
+		cout << Array[i] << " ";
+	cout << endl;
+}
+
+int Evencount(int Array[100], int length) {
+	int count = 0;
+	for (int i = 0; i < length; i++)
+	{
+		if (Array[i] % 2 == 0) 
+		{
+			count++;
+
+		}
+
+	}
+	return count;
+
+}
+
+ 
+int main() {
+	srand((unsigned)time(NULL));
+
+	int Array[100], length = 0;
+
+	FillArrayWithRandomNumbers(Array, length);
+
+	cout << "Array elements:";
+	PrintArray(Array , length);
+	
+	cout << "Even Numbers = ";
+	cout<<Evencount(Array, length)<<endl;
+
+	return 0;
+}
+-------------------------------------------------------------------
+Q44
+#include <iostream>
+using namespace std;
+int RandomNumber(int From, int To)
+{
+	int randNum = rand() % (To - From + 1) + From;
+	return randNum;
+}
+void FillArrayWithRandomNumbers(int Array[100], int& length)
+{
+	cout << "Enter number of elements:" << endl;
+	cin >> length;
+	for (int i = 0; i < length; i++)
+		Array[i] = RandomNumber(-100, 100);
+}
+void PrintArray(int Array[100], int length)
+{
+	for (int i = 0; i < length; i++)
+		cout << Array[i] << " ";
+	cout << endl;
+}
+
+int PositivNumbercount(int Array[100], int length) {
+	int count = 0;
+	for (int i = 0; i < length; i++)
+	{
+		if (Array[i] >= 0) 
+		{
+			count++;
+
+		}
+
+	}
+	return count;
+
+}
+
+ 
+int main() {
+	srand((unsigned)time(NULL));
+
+	int Array[100], length = 0;
+
+	FillArrayWithRandomNumbers(Array, length);
+
+	cout << "Array elements:";
+	PrintArray(Array , length);
+	
+	cout << "Positiv Numbers = ";
+	cout<<PositivNumbercount(Array, length)<<endl;
+
+	return 0;
+}
+------------------------------------------------------------------
+Q45
+#include <iostream>
+using namespace std;
+int RandomNumber(int From, int To)
+{
+	int randNum = rand() % (To - From + 1) + From;
+	return randNum;
+}
+void FillArrayWithRandomNumbers(int Array[100], int& length)
+{
+	cout << "Enter number of elements:" << endl;
+	cin >> length;
+	for (int i = 0; i < length; i++)
+		Array[i] = RandomNumber(-100, 100);
+}
+void PrintArray(int Array[100], int length)
+{
+	for (int i = 0; i < length; i++)
+		cout << Array[i] << " ";
+	cout << endl;
+}
+
+int NegativeNumbercount(int Array[100], int length) {
+	int count = 0;
+	for (int i = 0; i < length; i++)
+	{
+		if (Array[i] <= 0) 
+		{
+			count++;
+
+		}
+
+	}
+	return count;
+
+}
+
+ 
+int main() {
+	srand((unsigned)time(NULL));
+
+	int Array[100], length = 0;
+
+	FillArrayWithRandomNumbers(Array, length);
+
+	cout << "Array elements:";
+	PrintArray(Array , length);
+	
+	cout << "Negative Numbers = ";
+	cout<<NegativeNumbercount(Array, length)<<endl;
+
+	return 0;
+}
+-----------------------------------------------------------------------
+Q46
+#include <iostream>
+using namespace std;
+float MyABS(float Nunmber) {
+
+	if (Nunmber >0)
+	{
+		return Nunmber;
+	}
+	else
+	{
+		return Nunmber * -1;
+	}
+}
+float ReadNumber() {
+	int Num;
+	cout << "Enter Number " << endl;
+	cin >> Num;
+	return Num;
+}
+int main() {
+	
+	float Num = ReadNumber();
+	cout << "My abs = " << MyABS(Num) << endl;
+		cout << "C++ abs = " << abs(Num) << endl; 
+
+
+	return 0;
+}
+-----------------------------------------------------------
+Q47
+#include <iostream>
+using namespace std;
+float GetFractionPart(float Number)
+{
+	return Number - int(Number);
+}
+int MyRound(float Number)
+{
+	int IntPart;
+	IntPart = int(Number);
+	float FractionsPart = GetFractionPart(Number);
+	if (abs(FractionsPart) >= .5)
+	{
+		if (Number > 0)
+			return ++IntPart;
+		else
+			return --IntPart;
+	}
+	else
+	{
+		return IntPart;
+	}
+}
+float ReadNumber()
+{
+	float Number;
+	cout << "enter a float number?";
+	cin >> Number;
+	return Number;
+}
+int main()
+{
+	float Number = ReadNumber();
+	cout << "My Round = : " << MyRound(Number) << endl;
+	cout << "C++ Round =: " << round(Number) << endl;
+	return 0;
+}
+--------------------------------------------------------------
+Q48
+#include <iostream>
+using namespace std;
+int Myfloor(float Number)
+{
+	if (Number > 0)
+		return int(Number);
+	else
+		return int(Number) - 1;
+}
+float ReadNumber()
+{
+	float Number;
+	cout << "enter a number?";
+	cin >> Number;
+	return Number;
+}
+int main()
+{
+	float Number = ReadNumber();
+	cout << "My MyFloor = : " << Myfloor(Number) << endl;
+	cout << "C++ floor = : " << floor(Number) << endl;
+	return 0;
+}
+------------------------------------------------------------
+Q49
+#include <iostream>
+using namespace std;
+float GetFractionPart(float Number)
+{
+	return Number - int(Number);
+}
+int MyCeil(float Number)
+{
+	if (abs(GetFractionPart(Number)) > 0)
+		if (Number > 0)
+			return int(Number) + 1;
+		else
+			return int(Number);
+	else
+		return Number;
+}
+float ReadNumber()
+{
+	float Number;
+	cout << "enter a number ? ";
+	cin >> Number;
+	return Number;
+}
+int main()
+{
+	float Number = ReadNumber();
+	cout << "My MyCeil = : " << MyCeil(Number) << endl;
+	cout << "C++ ceil =: " << ceil(Number) << endl;
+	return 0;
+}
+----------------------------------------------------------------------
+Q50
+#include <iostream>
+using namespace std;
+int MySqrt(float Number)
+{
+	return pow(Number, 0.5);
+}
+float ReadNumber()
+{
+	float Number;
+	cout << "enter a number?";
+	cin >> Number;
+	return Number;
+}
+int main()
+{
+	float Number = ReadNumber();
+	cout << "My MySqrt = : " << MySqrt(Number) << endl;
+	cout << "C++ sqrt = : " << sqrt(Number) << endl;
+	return 0;
+}
