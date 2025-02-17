@@ -1,0 +1,301 @@
+#include<iostream>
+#include<cmath>
+#include<string>
+#include<cstdlib>
+
+using namespace std;
+
+enum enMath0peration { sum = 1, subtract = 2, multi = 3 , divison = 4 , Mix0P = 5};
+
+enum enLevelQu{ Easy = 1 , Medium = 2 , Hard = 3 , Mix = 4 };
+
+string OperationSymbol(enMath0peration OpTyp) {
+
+    switch (OpTyp)
+    {
+    case enMath0peration::sum:
+        return "+";
+
+    case enMath0peration::subtract:
+        return "-";
+
+    case enMath0peration::multi:
+        return "*";
+
+    case enMath0peration::divison:
+        return "/";
+    
+    default:
+        return "Mix";
+    }
+
+}
+
+string QuestionText(enLevelQu QuestionLevel) {
+
+    string ArrayQuestionLevel[4] = { "Easy" , "Medium" , "Hard" , "Mix" };
+    return ArrayQuestionLevel[QuestionLevel - 1];
+}
+
+int RandNumber(int From, int To)
+{
+    int RandNum = rand() % (To - From + 1) + From;
+    return RandNum;
+}
+
+void SetStateScreenCollr(bool isCorrect) {
+    if (isCorrect) {
+        system("Color 2F");
+    }
+    else {
+        system("Color 4F");
+    }
+}
+
+short HowManyQuestions() {
+    short NumQuestion;
+    do {
+        cout << "How Many Question You Want To Anser ?" << endl;
+        cin >> NumQuestion;
+    } while (NumQuestion <=0|| NumQuestion >100);
+    return NumQuestion;
+}
+
+enLevelQu ReadQuestionLevel() {
+    short QueLevel=0;
+     
+    do {
+        cout << "Enter Question Level Easy [1] , Medium [2] , Hard [3] , Mix[4] ?" << endl;
+        cin >> QueLevel;
+    } while (QueLevel < 1 || QueLevel > 4);
+    return (enLevelQu)QueLevel;
+}
+
+enMath0peration Read0pretionTyp() {
+    int OpTyp;
+
+    do {
+        cout << "Enter Opretion Typ Sum [1] , subtract [2] , multi [3] , divison [4] , Mix [5] ?" << endl;
+        cin >> OpTyp;
+    } while (OpTyp < 1 || OpTyp > 5);
+
+    return (enMath0peration)OpTyp;
+
+}
+
+struct stQuestion
+{
+    int num1=0;
+    int num2=0;
+    int CorrectAnser=0;
+    int PlyerAnser=0;
+    enMath0peration Operation;
+    enLevelQu LevelQu;
+    bool anserResult=false;
+};
+
+struct stQuiz
+{
+    stQuestion Question[100];
+    enLevelQu LevelQu;
+    enMath0peration Math0p;
+    short NumoFQu;
+    short NumoFfalseAnser=0;
+    short NumoFCorrectAnser=0;
+    bool ispass=false;
+
+};
+
+int Calculator(int num1 ,int num2 , enMath0peration OPTyp) {
+    switch (OPTyp)
+    {
+    case enMath0peration::sum:
+        return num1 + num2;
+
+    case enMath0peration::subtract:
+        return num1 - num2;
+
+    case enMath0peration::multi:
+        return num1 * num2;
+
+    case enMath0peration::divison:
+        return num1 / num2;
+
+    default:
+        return num1 + num2;
+    }
+
+}
+
+enMath0peration RandMthe0p() {
+
+    int RandOp = RandNumber(1, 4);
+    return (enMath0peration)RandOp;
+}
+
+stQuestion GeneratQuestion(enLevelQu QuestionLevel , enMath0peration OpTyp) {
+    stQuestion Question;
+    if (QuestionLevel == enLevelQu::Mix)
+        QuestionLevel = (enLevelQu)RandNumber(1,4);
+
+    if (OpTyp == enMath0peration::Mix0P)
+        OpTyp = RandMthe0p();
+    
+    Question.Operation = OpTyp;
+
+    switch (QuestionLevel)
+    {
+    case enLevelQu::Easy:
+
+        Question.num1 = RandNumber(1,10);
+        Question.num2 = RandNumber(1, 10);
+        Question.CorrectAnser = Calculator(Question.num1, Question.num2, Question.Operation);
+        Question.LevelQu = QuestionLevel;
+
+     return Question;
+
+    case enLevelQu::Medium:
+
+        Question.num1 = RandNumber(10, 20);
+        Question.num2 = RandNumber(10, 20);
+        Question.CorrectAnser = Calculator(Question.num1, Question.num2, Question.Operation);
+        Question.LevelQu = QuestionLevel;
+
+        return Question;
+
+    case enLevelQu::Hard:
+
+        Question.num1 = RandNumber(30, 100);
+        Question.num2 = RandNumber(30, 100);
+        Question.CorrectAnser = Calculator(Question.num1, Question.num2, Question.Operation);
+        Question.LevelQu = QuestionLevel;
+
+        return Question;
+
+    }
+    return Question;
+
+}
+
+void GeneratQuizz(stQuiz &Quiz) {
+    for (short Question = 0; Question < Quiz.NumoFQu; Question++) {
+        Quiz.Question[Question] = GeneratQuestion(Quiz.LevelQu , Quiz.Math0p);
+    }
+
+    
+}
+
+int ReadQuestionAnser() {
+
+    int Anser;
+    cin >> Anser;
+    return Anser;
+
+}
+
+void PrinQuestion(stQuiz &Quizz , short QuestionNum) {
+
+    cout << "\nQuestion [" <<QuestionNum + 1 <<"/"<<Quizz.NumoFQu << "]\n\n";
+    cout << Quizz.Question[QuestionNum].num1 << endl;
+    cout << Quizz.Question[QuestionNum].num2 << " ";
+    cout << OperationSymbol(Quizz.Question[QuestionNum].Operation);
+    cout << "\n_________" << endl;
+
+}
+
+void CorrectAnser(stQuiz &Quizz , short QuestionNum) {
+
+    if (Quizz.Question[QuestionNum].PlyerAnser != Quizz.Question[QuestionNum].CorrectAnser) {
+        Quizz.Question[QuestionNum].anserResult = false;
+        Quizz.NumoFfalseAnser++;
+        cout << "Worng Answer [-_-]" << endl;
+        cout << "The Right Answer is : "<<Quizz.Question[QuestionNum].CorrectAnser<<endl;
+
+    }
+    else
+    {
+        Quizz.Question[QuestionNum].anserResult = true;
+        Quizz.NumoFCorrectAnser++;
+    }
+    cout << endl;
+    SetStateScreenCollr(Quizz.Question[QuestionNum].anserResult);
+
+}
+
+void Ask_And_Correct_Question_Anser(stQuiz &Quizz) {
+    for (short QuestionNum = 0; QuestionNum < Quizz.NumoFQu; QuestionNum++) {
+
+        PrinQuestion(Quizz, QuestionNum);
+
+        Quizz.Question[QuestionNum].PlyerAnser = ReadQuestionAnser();
+
+        CorrectAnser(Quizz, QuestionNum);
+    }
+
+    Quizz.ispass = (Quizz.NumoFCorrectAnser >= Quizz.NumoFfalseAnser);
+}
+
+string FinalResult(bool pass) {
+
+    if (pass)
+        return "Pass 0_0";
+
+    else 
+        return "Fail [-_-]";
+
+}
+
+void PrentQuizResult(stQuiz Quizz) {
+
+    cout << "\n";
+    cout << "______________________________" << "\n" << endl;
+    cout << " Final Result is " <<FinalResult(Quizz.ispass) << endl;
+    cout << "\n" << "______________________________" <<"\n" << endl;
+    cout << " Number 0f Questions : " <<Quizz.NumoFQu << endl;
+    cout << " Questions Level     : " <<QuestionText(Quizz.LevelQu) << endl;
+    cout << " Operation Type      : " << OperationSymbol(Quizz.Math0p) << endl;
+    cout << " Number 0f Right Questions : " << Quizz.NumoFCorrectAnser << endl;
+    cout << " Number 0f Wrong Questions : " << Quizz.NumoFfalseAnser << endl;
+    cout << "______________________________"<< endl;
+
+
+}
+void  playgame() {
+    stQuiz Question;
+
+    Question.NumoFQu = HowManyQuestions();
+    Question.LevelQu = ReadQuestionLevel();
+    Question.Math0p = Read0pretionTyp();
+
+    GeneratQuizz(Question);
+    Ask_And_Correct_Question_Anser(Question);
+    PrentQuizResult(Question);
+
+}
+
+void ResetScreen() {
+
+    system("cls");
+    system("color 0F");
+}
+
+void start() {
+
+    char Playagain = 'y';
+    do {
+        ResetScreen();
+        playgame();
+        cout << endl << "Do You Want to Play Again? (Y/N) : ";
+        cin >> Playagain;
+    } while (Playagain == 'Y' || Playagain == 'y');
+}
+
+int main() {
+
+	srand((unsigned)time(NULL));
+
+    start();
+
+	
+	return 0;
+}
